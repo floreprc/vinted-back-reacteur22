@@ -166,10 +166,9 @@ router.get("/offers", async (req, res) => {
     if (req.query.resultsForEachPage) {
       resultsForEachPage = req.query.resultsForEachPage;
     }
+    let toSkip = 0;
     if (req.query.page > 1) {
-      const toSkip = (req.query.page - 1) * resultsForEachPage;
-    } else {
-      const toSkip = 0;
+      toSkip = (req.query.page - 1) * resultsForEachPage;
     }
     let filters = {};
     // Recherche dans le titre
