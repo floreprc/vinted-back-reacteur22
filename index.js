@@ -21,6 +21,10 @@ app.use(usersRoutes);
 const offersRoutes = require("./routes/offers");
 app.use(offersRoutes);
 
+app.use("/", (req, res) => {
+  res.json({ message: "Bienvenue sur la première API 😄" });
+});
+
 // Lancer le serveur
 app.listen(process.env.PORT, () => {
   console.log("It works ! 🪐");
