@@ -197,7 +197,9 @@ router.get("/offers", async (req, res) => {
       //   // Trier par ordre croissant ou décroissant >> ne fonctionne pas si pas de valeur
       .sort({ product_price: sortChoice })
       //   // Afficher seulement certaines infos
-      .select("_id product_name  product_price")
+      .select(
+        "_id product_name  product_price product_details product_image owner product_description"
+      )
       //   // afficher 2 résultats par page
       .limit(resultsForEachPage)
       //   // Enlever les résultats des pages précédentes >> fonctionne si pas de valeur
