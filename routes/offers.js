@@ -162,7 +162,7 @@ router.put("/offer/update", isAuthentificated, async (req, res) => {
 //Afficher les offres
 router.get("/offers", async (req, res) => {
   try {
-    let resultsForEachPage = 2;
+    let resultsForEachPage = 10;
     if (req.query.resultsForEachPage) {
       resultsForEachPage = req.query.resultsForEachPage;
     }
@@ -200,6 +200,7 @@ router.get("/offers", async (req, res) => {
       .select(
         "_id product_name  product_price product_details product_image owner product_description"
       )
+      .populate("owner")
       //   // afficher 2 résultats par page
       .limit(resultsForEachPage)
       //   // Enlever les résultats des pages précédentes >> fonctionne si pas de valeur
