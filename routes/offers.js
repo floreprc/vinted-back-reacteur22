@@ -215,7 +215,7 @@ router.get("/offers", async (req, res) => {
 });
 
 // Afficher une offer par ID
-router.get("/offer/:id", async (req, res) => {
+router.get("/offer", async (req, res) => {
   try {
     const searchedOffer = await Offer.findById(req.query.id).populate({
       path: "owner",
