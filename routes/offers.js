@@ -200,7 +200,7 @@ router.get("/offers", async (req, res) => {
       .select(
         "_id product_name  product_price product_details product_image owner product_description"
       )
-      .populate("owner")
+      .populate({ path: "owner", select: "account.username account.phone" })
       //   // afficher 2 résultats par page
       .limit(resultsForEachPage)
       //   // Enlever les résultats des pages précédentes >> fonctionne si pas de valeur
@@ -214,9 +214,10 @@ router.get("/offers", async (req, res) => {
   }
 });
 
+// Afficher une offer par ID
 router.get("/offer/:id", async (req, res) => {
   try {
-    const searchedOffer = await Offer.findById(req.params.id).populate({
+    const searchedOffer = await Offer.findById(req.query.id).populate({
       path: "owner",
       select: "account.username account.phone",
     });
