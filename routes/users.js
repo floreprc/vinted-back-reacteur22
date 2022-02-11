@@ -96,9 +96,7 @@ router.get("/user/find", async (req, res) => {
   try {
     if (req.query.token) {
       const searchedUser = await User.find({ token: req.query.token });
-      res.json({
-        username: searchedUser.account.username,
-      });
+      res.json({ username: searchedUser[0].account.username });
     }
   } catch (error) {
     res.status(400).json(error.message);
