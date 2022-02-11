@@ -21,7 +21,7 @@ router.post("/user/signup", async (req, res) => {
     if (req.fields.username) {
       const checkEmail = await User.findOne({ email: req.fields.email });
       if (checkEmail) {
-        res.status(400).json({ message: "This email already exists" });
+        res.status(409).json({ message: "This email already exists" });
       } else {
         // Sécurisation du mot de passe
         const userPassword = req.fields.password;
