@@ -26,9 +26,9 @@ app.get("/", (req, res) => {
 });
 
 // Lancer le serveur
-// app.listen(process.env.PORT, () => {
-//   console.log("It works ! 🪐");
-// });
-app.listen(3002, () => {
+app.listen(process.env.PORT, () => {
   console.log("It works ! 🪐");
 });
+// app.listen(3002, () => {
+//   console.log("It works ! 🪐");
+// });
