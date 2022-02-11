@@ -91,4 +91,18 @@ router.post("/user/login", async (req, res) => {
   }
 });
 
+// Rechercher un utilisateur
+router.get("/user/find", async (req, res) => {
+  try {
+    if (req.query.token) {
+      const searchedUser = await User.find({ token: req.query.token });
+      res.json({
+        username: searchedUser.account.username,
+      });
+    }
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
 module.exports = router;
