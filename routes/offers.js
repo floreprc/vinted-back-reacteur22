@@ -1,4 +1,5 @@
 const express = require("express");
+const stripe = require("stripe")(process.env.STRIPEPRIVATEKEY);
 const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 
@@ -200,7 +201,7 @@ router.get("/offers", async (req, res) => {
       .select(
         "_id product_name  product_price product_details product_image owner product_description"
       )
-      .populate({ path: "owner", select: "account.username account.phone" })
+      .populate({ path: "owner", select: "account.username account.phone _id" })
       //   // afficher 2 résultats par page
       .limit(resultsForEachPage)
       //   // Enlever les résultats des pages précédentes >> fonctionne si pas de valeur
@@ -222,6 +223,23 @@ router.get("/offer", async (req, res) => {
       select: "account.username account.phone",
     });
     res.json(searchedOffer);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+});
+
+// Gestion du paiement
+router.post("/pay", async (req, res) => {
+  try {
+    const stripeToken = req.fields.stripeToken;
+    const total = req.fields.total;
+    const response = await stripe.charges.create({
+      amount: total,
+      currency: "eur",
+      source: stripeToken,
+      description: `Le produit acheté est ${req.fields.title}`,
+    });
+    res.json(response);
   } catch (error) {
     res.status(400).json(error.message);
   }
