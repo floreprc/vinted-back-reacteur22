@@ -231,18 +231,18 @@ router.get("/offer", async (req, res) => {
 });
 
 // Gestion du paiement
-router.post("/pay", async (req, res) => {
-  try {
-    const response = await stripe.charges.create({
-      source: req.fields.stripeToken,
-      amount: req.fields.amount * 100,
-      currency: "eur",
-      description: `Le produit acheté a été acheté par ${req.fields.userID}`,
-    });
-    res.json(response);
-  } catch (error) {
-    res.status(400).json(error.message);
-  }
-});
+// router.post("/pay", async (req, res) => {
+//   try {
+//     const response = await stripe.charges.create({
+//       source: req.fields.stripeToken,
+//       amount: req.fields.amount * 100,
+//       currency: "eur",
+//       description: `Le produit acheté a été acheté par ${req.fields.userID}`,
+//     });
+//     res.json(response);
+//   } catch (error) {
+//     res.status(400).json(error.message);
+//   }
+// });
 
 module.exports = router;
