@@ -1,7 +1,12 @@
 const express = require("express");
+const formidable = require("express-formidable");
+const cors = require("cors");
 const stripe = require("stripe")(process.env.STRIPEPRIVATEKEY);
 const router = express.Router();
 const cloudinary = require("cloudinary").v2;
+const app = express();
+app.use(formidable());
+app.use(cors());
 
 // Configuration cloudinary
 cloudinary.config({
