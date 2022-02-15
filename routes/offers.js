@@ -231,13 +231,11 @@ router.get("/offer", async (req, res) => {
 // Gestion du paiement
 router.post("/pay", async (req, res) => {
   try {
-    const stripeToken = req.fields.stripeToken;
-    const total = req.fields.total;
     const response = await stripe.charges.create({
-      amount: total,
+      source: req.fields.stripeToken,
+      amount: req.fields.amount * 100,
       currency: "eur",
-      source: stripeToken,
-      description: `Le produit acheté est ${req.fields.title}`,
+      description: `Le produit acheté a été acheté par ${req.fields.userID}`,
     });
     res.json(response);
   } catch (error) {
