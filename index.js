@@ -20,17 +20,15 @@ const usersRoutes = require("./routes/users");
 app.use(usersRoutes);
 const offersRoutes = require("./routes/offers");
 app.use(offersRoutes);
-// const offersRoutes = require("./routes/payment");
-// app.use(offersRoutes);
 
 app.get("/", (req, res) => {
   res.json({ message: "Bienvenue sur ma première API 😄" });
 });
 
 // Lancer le serveur
-// app.listen(process.env.PORT, () => {
-//   console.log("It works ! 🪐");
-// });
-app.listen(3002, () => {
+app.listen(process.env.PORT, () => {
   console.log("It works ! 🪐");
 });
+// app.listen(3002, () => {
+//   console.log("It works ! 🪐");
+// });
