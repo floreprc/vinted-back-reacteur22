@@ -1,9 +1,7 @@
 const express = require("express");
 const formidable = require("express-formidable");
 const cors = require("cors");
-const stripe = require("stripe")(
-  "sk_test_51KTRERFT2kPusbx9BJhbptaaysaOknmFIWtb8cvWdaAl4gVADFp5Ja8eK5pb1ertEwHUFEVWHpTFAtYRzZhXVoFo00RunbYsdQ"
-);
+const stripe = require("stripe")(process.env.STRIPEPRIVATEKEY);
 const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 
@@ -252,7 +250,7 @@ router.post("/payment", async (req, res) => {
       source: req.fields.stripeToken,
       amount: req.fields.productPrice * 100, // en centimes
       currency: "eur",
-      description: "La description du produit acheté...",
+      description: `Produit acheté par (ID) : ${req.fields.userID}`,
     });
     // console.log(response);
     if (response.status === "succeeded") {
